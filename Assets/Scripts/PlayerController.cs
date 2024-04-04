@@ -2,38 +2,42 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Rigidbody2D rb;
+    Rigidbody2D rb;
+    Animator animator;
 
     // Bad Place Commands
     private float lastInput = 0;
 
     // Good Place Commands
-    private float jumpForce = 600f;
+    //private float jumpForce = 600f;
     private bool isGrounded = true;
-    private bool isSwiping = false;
-    private Vector2 startPos;
-    private Vector2 direction;
-    private float thresHold = 10f;
+    //private bool isSwiping = false;
+    //private Vector2 startPos;
+    //private Vector2 direction;
+    //private float thresHold = 10f;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        animator.SetFloat("xVelocity", rb.velocity.x + 0.1f);
+
         if (Time.time - lastInput > 3)
         {
             rb.AddForce(new Vector2(10, 0));
-            
         }
 
         if (Input.touchCount > 0)
         {
-            
-            //rb.AddForce(new Vector2(-20, 0));
+            rb.AddForce(new Vector2(-20, 0));
             lastInput = Time.time;
         }
     }
